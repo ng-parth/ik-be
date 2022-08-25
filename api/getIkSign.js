@@ -1,6 +1,32 @@
 import ImageKit from "imagekit";
 
-export default function getIkSignature(request, response) {
+const allowCors = fn => async (req, res) => {
+  const origin = req.header('origin');
+  if (!(
+      origin.indexOf('localhost') > -1 || 
+      origin.indexOf('vercel') > -1 || 
+      origin.indexOf('heroku') > -1 || 
+      origin.indexOf('ome-extension') > -1
+    )
+  ) res.send(401);
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  // res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+  return await fn(req, res)
+}
+
+function getIkSignature(request, response) {
   const {IMK_URL, IMK_PBL_KEY, IMK_PVT_KEY} = process.env;
   console.log('url: ', IMK_URL);
   console.log('pvtKey: ', IMK_PBL_KEY);
@@ -16,3 +42,4 @@ export default function getIkSignature(request, response) {
   response.status(200).json(authenticationParameters);
 }
 
+export default allowCors(getIkSignature);
