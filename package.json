@@ -1,0 +1,22 @@
+{
+  "name": "ik-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ng-parth/ik-be.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ng-parth/ik-be/issues"
+  },
+  "homepage": "https://github.com/ng-parth/ik-be#readme",
+  "dependencies": {
+    "imagekit": "^4.1.1"
+  }
+}
