@@ -2,7 +2,7 @@ import ImageKit from "imagekit";
 
 const allowCors = fn => async (req, res) => {
   const origin = req.headers?.origin;
-  console.log('Origin: ', origin);
+  // console.log('Origin: ', origin);
   if (!(
       origin.indexOf('localhost') > -1 || 
       origin.indexOf('vercel') > -1 || 
@@ -32,9 +32,9 @@ const allowCors = fn => async (req, res) => {
 
 function getIkSignature(request, response) {
   const {IMK_URL, IMK_PBL_KEY, IMK_PVT_KEY} = process.env;
-  console.log('url: ', IMK_URL);
-  console.log('pvtKey: ', IMK_PBL_KEY);
-  console.log('pblKey: ', IMK_PVT_KEY);
+  // console.log('url: ', IMK_URL);
+  // console.log('pvtKey: ', IMK_PBL_KEY);
+  // console.log('pblKey: ', IMK_PVT_KEY);
 
   const imagekit = new ImageKit({
     publicKey : IMK_PBL_KEY,
@@ -42,7 +42,7 @@ function getIkSignature(request, response) {
     urlEndpoint : IMK_URL,
   });
   const authenticationParameters = imagekit.getAuthenticationParameters();
-  console.log(authenticationParameters);
+  // console.log(authenticationParameters);
   response.status(200).json(authenticationParameters);
 }
 
