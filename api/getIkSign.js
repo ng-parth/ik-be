@@ -8,7 +8,10 @@ const allowCors = fn => async (req, res) => {
       origin.indexOf('heroku') > -1 || 
       origin.indexOf('ome-extension') > -1
     )
-  ) res.send(401);
+  ) {
+    res.status(401).end();
+    return;
+  }
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', origin);
   // another common pattern
