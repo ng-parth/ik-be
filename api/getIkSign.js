@@ -1,7 +1,8 @@
 import ImageKit from "imagekit";
 
 const allowCors = fn => async (req, res) => {
-  const origin = req.header('origin');
+  const origin = req.headers?.origin;
+  console.log('Origin: ', origin);
   if (!(
       origin.indexOf('localhost') > -1 || 
       origin.indexOf('vercel') > -1 || 
